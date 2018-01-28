@@ -110,9 +110,19 @@ module.exports = (options) => {
     );
 
     webpackConfig.module.rules.push({
-      test: /\.scss$/i,
-      use: ExtractSASS.extract(['css-loader', 'sass-loader'])
-    }, {
+			test: /\.scss$/i,
+			use: ExtractSASS.extract({
+				use: [{
+						loader: 'css-loader',
+						options: {
+							minimize: true
+						}
+					},
+					{
+						loader: 'sass-loader'
+					}]
+			})
+		}, {
       test: /\.css$/i,
       use: ExtractSASS.extract(['css-loader'])
     });
